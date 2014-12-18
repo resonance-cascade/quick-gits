@@ -1,0 +1,25 @@
+{
+  "name": "quick-git",
+  "version": "1.0.0",
+  "description": "Provides quick access to git commands using child_process",
+  "main": "index.js",
+  "scripts": {
+    "test": "tape test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git.com"
+  },
+  "keywords": [
+    "git"
+  ],
+  "author": "Bret Comnes",
+  "license": "MIT",
+  "dependencies": {
+    "fs-extra": "^0.13.0"
+  },
+  "devDependencies": {
+    "debug": "^2.1.0",
+    "tape": "^3.0.3"
+  }
+}
