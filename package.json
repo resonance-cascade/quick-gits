@@ -1,5 +1,5 @@
 {
-  "name": "quick-git",
+  "name": "quick-gits",
   "version": "1.0.2",
   "description": "Provides quick access to git commands using child_process",
   "main": "index.js",
@@ -12,13 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/bcomnes/quick-git.git"
+    "url": "git://github.com/bcomnes/quick-gits.git"
   },
   "bugs": {
-    "url": "https://github.com/bcomnes/quick-git/issues"
+    "url": "https://github.com/bcomnes/quick-gits/issues"
   },
   "keywords": [
-    "git"
+    "git",
+    "wrapper"
   ],
   "author": {
     "name": "Bret Comnes",
