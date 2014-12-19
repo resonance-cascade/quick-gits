@@ -1,6 +1,7 @@
 quick-gits
 =========
 
+[![npm version](https://badge.fury.io/js/quick-gits.svg)](https://www.npmjs.com/package/quick-gits)
 [![Build Status](https://travis-ci.org/bcomnes/quick-gits.svg)](https://travis-ci.org/bcomnes/quick-gits)
 [![Code Climate](https://codeclimate.com/github/bcomnes/quick-gits/badges/gpa.svg)](https://codeclimate.com/github/bcomnes/quick-gits)
 [![Test Coverage](https://codeclimate.com/github/bcomnes/quick-gits/badges/coverage.svg)](https://codeclimate.com/github/bcomnes/quick-gits)
