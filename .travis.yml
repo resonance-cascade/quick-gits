@@ -3,11 +3,6 @@ node_js:
   - "0.10"
 sudo: false
 
-before_script:
-  # Set time zones
-  - echo 'America/Los_Angeles' | sudo tee /etc/timezone
-  - sudo dpkg-reconfigure --frontend noninteractive tzdata
-
 script:
   # Run the tests/coverage
   - npm run travis
