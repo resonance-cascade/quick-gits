@@ -11,7 +11,6 @@ function git(workpath) {
   var fullwp = path.resolve(workpath);
   var exec = [gitBin, '-C ' + fullwp].join(' ');
   var execFile = ['-C', fullwp];
-  var self;
 
   function clone(remote, cb) {
     fs.ensureDir(path.dirname(fullwp), function(err) {
@@ -30,22 +29,22 @@ function git(workpath) {
   }
 
 
-  function gitRun(args /*[[, options], callback] */ ) {
-
-    switch (args.constructor) {
+  function gitRun(commands /*[[, options], callback] */ ) {
+    var args = arguments;
+    switch (commands.constructor) {
 
       case String:
 
-        arguments[0] = [exec, args].join(' ');
-        cp.exec(arguments[0], arguments[1], arguments[2])
+        args[0] = [exec, commands].join(' ');
+        cp.exec(args[0], args[1], args[2])
 
         break;
       case Array:
-        arguments[0] = execFile.concat(args)
-        if (arguments.length === 2) { //TODO Eliminate this if else
-          cp.execFile(gitBin, arguments[0], arguments[1])
+        args[0] = execFile.concat(commands)
+        if (args.length === 2) { //TODO Eliminate this if else
+          cp.execFile(gitBin, args[0], args[1])
         } else {
-          cp.execFile(gitBin, arguments[0], arguments[1], arguments[2])
+          cp.execFile(gitBin, args[0], args[1], args[2])
         }
         break;
     }

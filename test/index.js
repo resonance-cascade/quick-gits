@@ -1,7 +1,6 @@
 var test = require('tape');
 var path = require('path');
 var fs = require('fs-extra');
-var cp = require('child_process');
 var debug = require('debug');
 
 var makeGit = require('../')
@@ -15,7 +14,7 @@ var cloneTree = path.join(temp, cloneName);
 var git;
 var clone;
 
-test("ensure clean directory", function(t) {
+test('ensure clean directory', function(t) {
   if (fs.existsSync(temp)) {
     fs.remove(temp, function(err) {
       t.error(err, 'tmp dir removed');
@@ -27,20 +26,22 @@ test("ensure clean directory", function(t) {
   }
 })
 
-test("create git object", function(t) {
+test('create git object', function(t) {
   t.plan(1);
   git = makeGit(workTree);
   t.pass('git instance created');
 })
 
-test("init test repo", function(t) {
+test('init test repo', function(t) {
   t.plan(1);
   git.init(function(err, stdout, stderr) {
     t.error(err, 'initialzed test repo');
+    debug(stdout);
+    debug(stderr);
   })
 })
 
-test("run a string command", function(t) {
+test('run a string command', function(t) {
   t.plan(1);
 
   git('status', function(err, stdout, stderr) {
@@ -50,7 +51,7 @@ test("run a string command", function(t) {
   })
 })
 
-test("run a file command", function(t) {
+test('run a file command', function(t) {
   t.plan(1);
   git(['status'], function(err, stdout, stderr) {
     t.error(err, 'array command sucessfully run');
@@ -59,7 +60,7 @@ test("run a file command", function(t) {
   })
 })
 
-test("run a string command w/ options", function(t) {
+test('run a string command w/ options', function(t) {
   t.plan(1);
 
   git('status', {
@@ -71,7 +72,7 @@ test("run a string command w/ options", function(t) {
   })
 })
 
-test("run a file command w/ options", function(t) {
+test('run a file command w/ options', function(t) {
   t.plan(1);
   git(['status'], {
     timeout: 15000
@@ -82,7 +83,7 @@ test("run a file command w/ options", function(t) {
   })
 })
 
-test("clone testRepo", function(t) {
+test('clone testRepo', function(t) {
   t.plan(1);
   clone = makeGit(cloneTree);
   clone.clone(workTree, function(err, stdout, stderr) {
@@ -93,7 +94,7 @@ test("clone testRepo", function(t) {
 })
 
 
-test("clean up", function(t) {
+test('clean up', function(t) {
   t.plan(1);
   fs.remove(temp, function(err) {
     t.error(err, 'tests cleaned up')
