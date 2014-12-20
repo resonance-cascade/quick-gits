@@ -15,8 +15,8 @@ function git(workpath) {
   function clone(remote, cb) {
     fs.ensureDir(path.dirname(fullwp), function(err) {
       if (err) return cb(err);
-      cp.execFile(gitBin, ['clone', remote, fullwp], cb)
-    })
+      cp.execFile(gitBin, ['clone', remote, fullwp], cb);
+    });
   }
 
 
@@ -24,8 +24,8 @@ function git(workpath) {
   function init(cb) {
     fs.ensureDir(fullwp, function(err) {
       if (err) return cb(err);
-      cp.execFile(gitBin, ['init', fullwp], cb)
-    })
+      cp.execFile(gitBin, ['init', fullwp], cb);
+    });
   }
 
 
@@ -36,15 +36,15 @@ function git(workpath) {
       case String:
 
         args[0] = [exec, commands].join(' ');
-        cp.exec(args[0], args[1], args[2])
+        cp.exec(args[0], args[1], args[2]);
 
         break;
       case Array:
-        args[0] = execFile.concat(commands)
+        args[0] = execFile.concat(commands);
         if (args.length === 2) { //TODO Eliminate this if else
-          cp.execFile(gitBin, args[0], args[1])
+          cp.execFile(gitBin, args[0], args[1]);
         } else {
-          cp.execFile(gitBin, args[0], args[1], args[2])
+          cp.execFile(gitBin, args[0], args[1], args[2]);
         }
         break;
     }
