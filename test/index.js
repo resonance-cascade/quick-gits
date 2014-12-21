@@ -1,6 +1,7 @@
 var test = require('tape');
 var path = require('path');
-var fs = require('fs-extra');
+var fs = require('fs');
+var rimraf = require('rimraf');
 var debug = require('debug');
 
 var makeGit = require('../');
@@ -16,7 +17,7 @@ var clone;
 
 test('ensure clean directory', function(t) {
   if (fs.existsSync(temp)) {
-    fs.remove(temp, function(err) {
+    rimraf(temp, function(err) {
       t.error(err, 'tmp dir removed');
       t.end();
     });
@@ -96,7 +97,7 @@ test('clone testRepo', function(t) {
 
 test('clean up', function(t) {
   t.plan(1);
-  fs.remove(temp, function(err) {
+  rimraf(temp, function(err) {
     t.error(err, 'tests cleaned up');
   });
 });
