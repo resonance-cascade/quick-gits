@@ -1,6 +1,6 @@
 var cp = require('child_process');
 var path = require('path');
-var fs = require('fs-extra');
+var mkdirp = require('mkdirp');
 
 var gitBin = 'git';
 
@@ -13,16 +13,15 @@ function git(workpath) {
   var execFile = ['-C', fullwp];
 
   function clone(remote, cb) {
-    fs.ensureDir(path.dirname(fullwp), function(err) {
+    mkdirp(path.dirname(fullwp), function(err) {
       if (err) return cb(err);
       cp.execFile(gitBin, ['clone', remote, fullwp], cb);
     });
   }
 
 
-
   function init(cb) {
-    fs.ensureDir(fullwp, function(err) {
+    mkdirp(fullwp, function(err) {
       if (err) return cb(err);
       cp.execFile(gitBin, ['init', fullwp], cb);
     });
@@ -39,13 +38,19 @@ function git(workpath) {
         cp.exec(args[0], args[1], args[2]);
 
         break;
+
       case Array:
+
         args[0] = execFile.concat(commands);
+
         if (args.length === 2) { //TODO Eliminate this if else
           cp.execFile(gitBin, args[0], args[1]);
+
         } else {
           cp.execFile(gitBin, args[0], args[1], args[2]);
+
         }
+
         break;
     }
   }

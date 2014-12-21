@@ -28,7 +28,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "fs-extra": "^0.13.0"
+    "mkdirp": "^0.5.0"
   },
   "devDependencies": {
     "codeclimate-test-reporter": "0.0.4",
