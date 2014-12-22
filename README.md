@@ -6,7 +6,7 @@ quick-gits
 [![Code Climate](https://codeclimate.com/github/bcomnes/quick-gits/badges/gpa.svg)](https://codeclimate.com/github/bcomnes/quick-gits)
 [![Test Coverage](https://codeclimate.com/github/bcomnes/quick-gits/badges/coverage.svg)](https://codeclimate.com/github/bcomnes/quick-gits)
 
-Provides quick access to git commands using child_process.  Works with Node.
+Provides quick access to most git commands using child_process.  Works with Node.
 
 ## Example
 
@@ -21,11 +21,9 @@ var repoA = gits(repoAPath);
 var repoB = gits(repoBPath);
 
 repoA.init(function(err, stdout, stderr) {
-
   console.log('Initialized new repository at ' + repoAPath)
 
   repoB.clone(repoAPath, function(err, stdout, stderr) {
-
     console.log('Cloned ' + repoAPath + ' to ' + repoBPath)
 
     repoA('status', function(err, stdout, stderr) {
@@ -37,6 +35,7 @@ repoA.init(function(err, stdout, stderr) {
       console.log('repoB pulled repo A')
       console.log(stdout);
     });
+
   });
 });
 
@@ -57,22 +56,70 @@ repoB pulled repo A
 
 ## Methods
 
-`quick-gits` is a convience wrapper around the `child_process` module when you need to automate and call git many times in a program, or assemble more complicated git workflow.
+`quick-gits` is a convenience wrapper around the `child_process` module running `git` commands.  It is useful when you need to automate git workflows in a program.
 
 
-### `var git =  require('quick-gits')(path)`
+### `var git =  require('quick-gits')(workpath)`
 
-Returns a `quick-gits` function that is bound the `path` it is called with and is assigned to the example `git` object.  Assign `require('quick-gits')` to a variable create a repository object factory.  It follows the Functional Inheritance pattern and does not requires the `new` keyword.
+- Return: QuickGits object
+
+Returns a `quick-gits` Object that is bound bound to `workpath`.  You can think of the returned function equivalent to running the `git` command inside of the `path` it is bound to, or running `git` from the command line with the `-C` option pointing to `path`.
+
+Assign `require('quick-gits')` to a variable create a repository object factory.  It follows the Functional Inheritance pattern and does not requires the `new` keyword.
+
+```js
+var gits = require('quick-gits');
+var path = require('path');
+
+var repoA = gits(path.join(__dirname, 'repoA'));
+var repoB = gits(path.join(__dirname, 'repoB'));
+```
 
 ### `git(command, [options], [callback])`
 
-`git` is a function that normalizes the input similar to the [`child_process.exec`](http://nodejs.org/api/child_process.html#child_process_child_process_exec_command_options_callback) and [`child_process.execFile`](http://nodejs.org/api/child_process.html#child_process_child_process_execfile_file_args_options_callback) methods, except `git` is the command or file being run with arguments provided by the `command` argument and the `-C` git flag set to the creation `path`.
+There are two primary ways of using a returned `quick-gits` object.
 
+- `command` String or Array of arguments to pass to `git`.
+  - Accepts either a [`child_process.exec`](http://nodejs.org/api/child_process.html#child_process_child_process_exec_command_options_callback) or a [`child_process.execFile`](http://nodejs.org/api/child_process.html#child_process_child_process_execfile_file_args_options_callback) style command to pass to `git`.
+  - `command` Array
+    - Passing an Array as the command uses `child_process.execFile` to run the command.
+    - `['push','origin','master']` results in `git -C $workpath push origin master`
+  - `command` String
+    - Passing a String as the command uses the `child_process.exec` to run the command.
+    - `'push origin master'` results in `git -C $workpath push origin master`
+- `options` Object
+  - accepts the same options as [`child_process.exec`](http://nodejs.org/api/child_process.html#child_process_child_process_exec_command_options_callback) and [`child_process.execFile`](http://nodejs.org/api/child_process.html#child_process_child_process_execfile_file_args_options_callback).
+  - `cwd` String Current working directory of the child process
+  - `env` Object Environment key-value pairs
+  - `encoding` String (Default: 'utf8')
+  - `timeout` Number (Default: 0)
+  - `maxBuffer` Number `(Default: 200*1024)`
+  - `killSignal` String (Default: 'SIGTERM')
+- `callback` Function called with the output when git terminates
+  - `error` Error
+  - `stdout` Buffer
+  - `stderr` Buffer
 
+### Convince Methods
+
+These methods are special cases where you would not want the `workpath` specified when running a git command, such as cloning and initialization of new repositories.
+
+### `git.init(callback)`
+
+Same as running `git init workpath` to initialize an empty repository at `workpath`.  Relative `workpath`s are resolved to the full path through `path.resolve`, and an new directories are created recursively using [`mkdirp`](https://www.npmjs.com/package/mkdirp).
+
+- `callback` Function called with the output when git terminates
+  - `error` Error
+  - `stdout` Buffer
+  - `stderr` Buffer
 
 ### `git.clone(remote, cb)`
 
+Same as running `git clone remote workpath`.  Relative `workpath`s are resolved to the full path through `path.resolve`, and an new directories are created recursively using [`mkdirp`](https://www.npmjs.com/package/mkdirp).
 
-
-### `git.init(cb)`
+- `remote` String passed as the `<repository>` to the `git` command.
+- `callback` Function called with the output when git terminates
+  - `error` Error
+  - `stdout` Buffer
+  - `stderr` Buffer
 
