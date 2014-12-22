@@ -100,13 +100,13 @@ There are two primary ways of using a returned `quick-gits` object.
   - `stdout` Buffer
   - `stderr` Buffer
 
-### Convince Methods
+### Convenience Methods
 
 These methods are special cases where you would not want the `workpath` specified when running a git command, such as cloning and initialization of new repositories.
 
 ### `git.init(callback)`
 
-Same as running `git init workpath` to initialize an empty repository at `workpath`.  Relative `workpath`s are resolved to the full path through `path.resolve`, and an new directories are created recursively using [`mkdirp`](https://www.npmjs.com/package/mkdirp).
+Same as running `git init $workpath` to initialize an empty repository at `workpath`.  Relative `workpath`s are resolved to the full path through `path.resolve`, and an new directories are created recursively using [`mkdirp`](https://www.npmjs.com/package/mkdirp).
 
 - `callback` Function called with the output when git terminates
   - `error` Error
@@ -115,7 +115,7 @@ Same as running `git init workpath` to initialize an empty repository at `workpa
 
 ### `git.clone(remote, cb)`
 
-Same as running `git clone remote workpath`.  Relative `workpath`s are resolved to the full path through `path.resolve`, and an new directories are created recursively using [`mkdirp`](https://www.npmjs.com/package/mkdirp).
+Same as running `git clone remote $workpath`.  Relative `workpath`s are resolved to the full path through `path.resolve`, and an new directories are created recursively using [`mkdirp`](https://www.npmjs.com/package/mkdirp).
 
 - `remote` String passed as the `<repository>` to the `git` command.
 - `callback` Function called with the output when git terminates
