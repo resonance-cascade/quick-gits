@@ -1,4 +1,4 @@
-`quick-gits
+quick-gits
 =========
 
 [![npm version](https://badge.fury.io/js/quick-gits.svg)](https://www.npmjs.com/package/quick-gits)
