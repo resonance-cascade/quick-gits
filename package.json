@@ -5,10 +5,12 @@
   "main": "index.js",
   "scripts": {
     "tape": "tape test/*.js",
-    "test": "npm run tape | tap-spec",
-    "cover": "istanbul cover tape test/*.js | tap-spec",
+    "tap-spec": "tape test/*.js | tap-spec",
+    "test": "istanbul cover tape test/*.js | tap-spec && standard",
+    "standard": "standard --verbose",
     "submitCover": "cat coverage/lcov.info | codeclimate",
-    "travis": "npm run cover && npm run submitCover"
+    "travis": "npm test && npm run submitCover",
+    "tester": "nodemon -i coverage --exec 'npm --silent run cover'"
   },
   "repository": {
     "type": "git",
@@ -36,6 +38,7 @@
     "istanbul": "^0.3.5",
     "rimraf": "^2.2.8",
     "tap-spec": "^2.1.2",
-    "tape": "^3.0.3"
+    "tape": "^3.0.3",
+    "standard": "^2.6.2"
   }
 }
