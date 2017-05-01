@@ -1,7 +1,7 @@
 quick-gits
 =========
 
-DEPRECIATED!
+DEPRECIATED!  Use https://github.com/feross/git-pull-or-clone instead
 
 [![npm version](https://badge.fury.io/js/quick-gits.svg)](https://www.npmjs.com/package/quick-gits)
 [![Build Status](https://travis-ci.org/bcomnes/quick-gits.svg)](https://travis-ci.org/bcomnes/quick-gits)
